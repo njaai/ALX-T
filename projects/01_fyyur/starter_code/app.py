@@ -129,17 +129,6 @@ def venues():
 
   data=Venue.query.all()
 
-  # data=db.session.query(Venue.city, Venue.state.distinct().label("state")).all();
-  # data = [row.state for row in data]
-  #data=Venue.query.order_by(Venue.city.name).all()
-  #todos=Venue.query.filter_by(Venue.id==Venue.id).order_by('id').all()
-  # data=db.session.query(Venue.city, Venue.state.distinct()).all()
-
-
-  # for vm in data:
-  #   venue = Venue.query.get(Venue.name)
-
-
   # data1 = [{
   #   "city": "San Francisco",
   #   "state": "CA",
@@ -338,9 +327,15 @@ def search_artists():
   # TODO: implement search on artists with partial string search. Ensure it is case-insensitive.
   # seach for "A" should return "Guns N Petals", "Matt Quevado", and "The Wild Sax Band".
   # search for "band" should return "The Wild Sax Band".
+
   
-  search_term = request.form.get('search_term', '')
-  response = Artist.query.filter(Artist.name.ilike('%' + search_term + '%')).all()
+  response = Artist.query.filter(Artist.name.ilike('%' + request.form.get('search_term', '') + '%')).all()
+   
+
+  # for data in response:
+  #   data = Artist.query.get(data.id)
+  
+
 
   #response= 
   # {
@@ -623,6 +618,7 @@ def shows():
   # data = []
 
   data=db.session.query(Show)
+  # data=Show.query.all()
 
   # for show in shows:
   #   artist = Artist.query.get(show.artist_id)
